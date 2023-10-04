@@ -137,6 +137,9 @@ public class TaskTemplate implements TaskOperations {
 		this.definitionLink = resources.getLink(DEFINITION_RELATION).get();
 		this.executionsLink = resources.getLink(EXECUTIONS_RELATION).get();
 		this.executionLink = resources.getLink(EXECUTION_RELATION).get();
+
+		// RENFRO: Instead of using this, inspect `dataflowServerVersion` to route to old or new endpoint
+
 		if(resources.getLink(EXECUTION_LAUNCH_RELATION).isPresent()) {
 			this.executionLaunchLink = resources.getLink(EXECUTION_LAUNCH_RELATION).get();
 		} else {
