@@ -69,7 +69,18 @@ public interface TaskOperations {
 	 * @param arguments  the command line arguments
 	 * @return long containing the TaskExecutionId
 	 */
-	LaunchResponseResource launch(String name, Map<String, String> properties, List<String> arguments);
+	@Deprecated
+	long launch(String name, Map<String, String> properties, List<String> arguments);
+
+	/**
+	 * Launch an already created task.
+	 *
+	 * @param name       the name of the task
+	 * @param properties the deployment properties
+	 * @param arguments  the command line arguments
+	 * @return long containing the TaskExecutionId
+	 */
+	LaunchResponseResource launchNewThing(String name, Map<String, String> properties, List<String> arguments);
 
 	/**
 	 * Request the stop of a group {@link org.springframework.cloud.task.repository.TaskExecution}s.

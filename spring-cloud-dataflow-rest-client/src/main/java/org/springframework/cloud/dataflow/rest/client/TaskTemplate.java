@@ -177,7 +177,16 @@ public class TaskTemplate implements TaskOperations {
 	}
 
 	@Override
-	public LaunchResponseResource launch(String name, Map<String, String> properties, List<String> arguments) {
+	@Deprecated
+	public long launch(String name, Map<String, String> properties, List<String> arguments) {
+		MultiValueMap<String, Object> values = new LinkedMultiValueMap<>();
+		values.add("properties", DeploymentPropertiesUtils.format(properties));
+		values.add("arguments", StringUtils.collectionToDelimitedString(arguments, " "));
+		return restTemplate.postForObject(executionByNameLink.expand(name).getHref(), values, Long.class, name);
+	}
+
+	@Override
+	public LaunchResponseResource launchNewThing(String name, Map<String, String> properties, List<String> arguments) {
 		Assert.notNull(executionLaunchLink, "This version of SCDF doesn't support tasks/executions/launch");
 		MultiValueMap<String, Object> values = new LinkedMultiValueMap<>();
 		String formattedProperties = DeploymentPropertiesUtils.format(properties);

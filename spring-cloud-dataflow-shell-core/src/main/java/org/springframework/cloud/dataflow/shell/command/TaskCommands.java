@@ -231,6 +231,16 @@ public class TaskCommands {
 		if (StringUtils.hasText(platformName)) {
 			propertiesToUse.put("spring.cloud.dataflow.task.platformName", platformName);
 		}
+
+		// BONO: We now need to figure out to call launch OR launchNewThing.
+		// 		 In AppRegistryCommands we added a bootVersion optional property that user CAN specify (defaults to Boot2).
+		// 		 If we do the same thing here then users will now be required to set the bootVersion always if they are on 2.11 (which seems annoying).
+		//
+		//		 See: org.springframework.cloud.dataflow.shell.command.AppRegistryCommands.register
+		//
+		//	Option1: force user to pass in bootVersion here and route to either Tasktemplate 'launch' or 'launchNewThing'
+		//  Option2: have single smart 'launch' method in TaskTemplate that figures out the version to use based on Dataflow version
+
 		LaunchResponseResource response = taskOperations().launch(name, propertiesToUse, argumentsToUse);
 		return String.format("Launched task '%s' with execution id %d, schemaTarget %s", name, response.getExecutionId(), response.getSchemaTarget());
 	}

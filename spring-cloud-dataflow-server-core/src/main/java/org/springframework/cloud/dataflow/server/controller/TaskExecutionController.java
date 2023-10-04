@@ -218,6 +218,7 @@ public class TaskExecutionController {
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST, params = "name")
 	@ResponseStatus(HttpStatus.CREATED)
+	@Deprecated
 	public long launch(
 			@RequestParam("name") String taskName,
 			@RequestParam(required = false) String properties,
@@ -233,6 +234,7 @@ public class TaskExecutionController {
 		LaunchResponse launchResponse = this.taskExecutionService.executeTask(taskName, propertiesToUse, argumentsToUse);
 		return launchResponse.getExecutionId();
 	}
+
 	@RequestMapping(value = "/launch", method = RequestMethod.POST, params = "name")
 	@ResponseStatus(HttpStatus.CREATED)
 	public LaunchResponseResource launchBoot3(
