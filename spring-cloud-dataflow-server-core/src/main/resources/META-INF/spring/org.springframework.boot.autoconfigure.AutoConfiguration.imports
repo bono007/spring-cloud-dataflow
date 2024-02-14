@@ -1,3 +1,4 @@
+org.springframework.cloud.dataflow.server.config.H2ServerConfiguration
 org.springframework.cloud.dataflow.server.config.DataFlowControllerAutoConfiguration
 org.springframework.cloud.dataflow.server.config.DataFlowServerAutoConfiguration
 org.springframework.cloud.dataflow.server.config.DataflowAsyncAutoConfiguration

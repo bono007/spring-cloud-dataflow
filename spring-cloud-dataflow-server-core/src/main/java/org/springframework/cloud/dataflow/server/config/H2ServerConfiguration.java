@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jakarta.annotation.PostConstruct;
 import org.h2.tools.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,14 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,11 +44,17 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Michael Wirth
  */
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnClass(Server.class)
-@ConditionalOnProperty(name = "spring.dataflow.embedded.database.enabled", havingValue = "true", matchIfMissing = true)
-@ConditionalOnExpression("'${spring.datasource.url:#{null}}'.startsWith('jdbc:h2:tcp://localhost:')")
+@AutoConfiguration(before = { 		FlywayAutoConfiguration.class, DataSourceAutoConfiguration.class, SqlInitializationAutoConfiguration.class })
+//@Configuration(proxyBeanMethods = false)
+//@ConditionalOnClass(Server.class)
+//@ConditionalOnProperty(name = "spring.dataflow.embedded.database.enabled", havingValue = "true", matchIfMissing = true)
+//@ConditionalOnExpression("'${spring.datasource.url:#{null}}'.startsWith('jdbc:h2:tcp://localhost:')")
 public class H2ServerConfiguration {
+
+	@PostConstruct
+	void init() {
+		System.out.println("WTH??????");
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(H2ServerConfiguration.class);
 

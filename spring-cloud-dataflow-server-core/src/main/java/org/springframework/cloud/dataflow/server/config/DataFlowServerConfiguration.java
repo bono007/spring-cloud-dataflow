@@ -71,7 +71,7 @@ import org.springframework.web.filter.ForwardedHeaderFilter;
 		CompletionConfiguration.class,
 		FeaturesConfiguration.class,
 		WebConfiguration.class,
-		H2ServerConfiguration.class,
+		//H2ServerConfiguration.class,
 		SchemaServiceConfiguration.class,
 		AggregateTaskConfiguration.class,
 		AggregateDataFlowTaskConfiguration.class
